@@ -15,10 +15,12 @@ class Profile(AbstractUser):
     unique_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     rate = models.DecimalField(max_digits=4, decimal_places=3, default=0.000)
     description = models.TextField(max_length = 300, blank = True, null = True)
+    total_voted = models.PositiveIntegerField(default=0)
+    
     def __str__(self):
         return self.username
     def save(self, *args , **kwargs):
-        if self.user.is_superuser :
+        if self.is_superuser :
             self.role = 'admin'
         super(Profile, self).save(*args , **kwargs)
     # def save(self, *args, **kwargs):
