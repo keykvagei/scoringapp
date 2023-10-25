@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-def profile_view(request, id):
+def profile_view(request, username):
     
 
     return render(request, "profiles/profile.html")
