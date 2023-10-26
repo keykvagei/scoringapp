@@ -1,13 +1,21 @@
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-import uuid
 from posts.models import Post
-from decimal import Decimal
 
-def get_upload_to(instance, filename):
+from django.shortcuts import reverse
+
+
+from decimal import Decimal
+import uuid
+
+def get_upload_to_avatar(instance, filename):
     file_extension = filename.split('.')[-1]
     return f'avatars/{instance.pk}.{file_extension}'
+
+def get_upload_to_qrcode(instance, filename):
+    file_extension = filename.split('.')[-1]
+    return f'qrcodes/{instance.pk}.{file_extension}'
 
 
 class Profile(AbstractUser):
@@ -18,20 +26,23 @@ class Profile(AbstractUser):
         ('admin', 'Admin')
     )
     unique_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    avatar = models.ImageField(upload_to=get_upload_to)
+    avatar = models.ImageField(upload_to=get_upload_to_avatar)
     role = models.CharField(max_length=12, choices=ROLE_CHOICES, default='citizen')
     description = models.TextField(max_length = 300, blank = True, null = True)   
     rate = models.DecimalField(max_digits=4, decimal_places=3, default=0.000)
     total_ratings = models.PositiveIntegerField(default=0)
     total_rating_value = models.DecimalField(max_digits=100,decimal_places=4, default=Decimal('0.00'))
-    
+    qrcode = models.ImageField(upload_to=get_upload_to_qrcode)
     def __str__(self):
         return self.username
 
     def save(self, *args , **kwargs):
         if self.is_superuser :
             self.role = 'admin'
+
+
         super(Profile, self).save(*args , **kwargs)
+
         Post.objects.create(poster=self)
     # def save(self, *args, **kwargs):
     #     if not self.unique_id:

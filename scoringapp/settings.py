@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "feed",
     "rating",
     "posts",
+    "qr_code",
 ]
 
 MIDDLEWARE = [

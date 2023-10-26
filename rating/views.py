@@ -18,13 +18,17 @@ def rating_view(request):
     print("XXXXXXXXX: ", request.POST)
     target_id = request.POST.get("target")
     post_id = request.POST.get("post")
-    rate = Decimal(request.POST.get("rate"))
+    rate = int(request.POST.get("rate"))
 
-
-    target = get_object_or_404(Profile, unique_id=target_id)
+    print(request.POST)
+    print(type(request.POST.get("target_id")))
+    target = get_object_or_404(Profile, pk=target_id)
+    print("salam")
     sender = request.user
     if post_id:
         post = get_object_or_404(Post, pk=post_id)
+        print("2")
+
 
     if rate >= 0 and rate <= 5:
         Profile.objects.filter(unique_id=target_id).update(
