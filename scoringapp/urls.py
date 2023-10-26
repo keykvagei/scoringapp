@@ -25,7 +25,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("profile/", include("profiles.urls")),
     path("feed/", include("feed.urls")),
-    path("rate/", include("rating.urls"))
+    path("rate/", include("rating.urls")),
+    path("post/", include("posts.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
