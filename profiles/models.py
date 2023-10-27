@@ -13,9 +13,6 @@ def get_upload_to_avatar(instance, filename):
     file_extension = filename.split('.')[-1]
     return f'avatars/{instance.pk}.{file_extension}'
 
-def get_upload_to_qrcode(instance, filename):
-    file_extension = filename.split('.')[-1]
-    return f'qrcodes/{instance.pk}.{file_extension}'
 
 
 class Profile(AbstractUser):
@@ -32,7 +29,6 @@ class Profile(AbstractUser):
     rate = models.DecimalField(max_digits=4, decimal_places=3, default=0.000)
     total_ratings = models.PositiveIntegerField(default=0)
     total_rating_value = models.DecimalField(max_digits=100,decimal_places=4, default=Decimal('0.00'))
-    qrcode = models.ImageField(upload_to=get_upload_to_qrcode)
     def __str__(self):
         return self.username
 

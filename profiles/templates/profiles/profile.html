@@ -2,10 +2,89 @@
 
 
 {% block title %}
-
+salam
 {% endblock %}
 
 
-{% block content %}
 
+{% block content %}
+{% load qr_code %}
+<div class="row m-5">
+    <div class="col text-center">
+      <div class="avatar-upload">
+        <div class="avatar-preview">
+          <div
+            id="imagePreview"
+            style="background-image: url('{{user.avatar.url}}')"
+          ></div>
+        </div>
+      </div>
+      <h1 style="font-family: Poppins Semibold" class="mt-4">Rating {{user.rate}}</h1>
+      {% qr_from_text unique_url  size="m"%}
+
+    </div>
+    <div class="col-8">
+      <div class="card">
+        <div class="row d-flex align-items-center m-3">
+          <div class="col">
+            <h4 style="font-family: Poppins Semibold">username:</h4>
+          </div>
+          <div class="col" class="attr-field">
+            <p>
+              {{ user.username }}
+            </p>
+          </div>
+        </div>
+        <div class="row d-flex align-items-center m-3">
+          <div class="col">
+            <h4 style="font-family: Poppins Semibold">first name:</h4>
+          </div>
+          <div class="col" class="attr-field">
+            <p>
+              {{user.first_name}}
+            </p>
+          </div>
+        </div>
+        <div class="row d-flex align-items-center m-3">
+          <div class="col">
+            <h4 style="font-family: Poppins Semibold">last name:</h4>
+          </div>
+          <div class="col" class="attr-field">
+            <p>
+              {{user.last_name}}
+            </p>
+          </div>
+        </div>
+        {% if is_owner %}
+          <div class="row d-flex align-items-center m-3">
+            <div class="col">
+              <a href="{% url 'myprofile' %}edit">
+                <button>
+                    <p>
+                        edit profile
+                    </p>
+                </button>
+              </a>
+              <a href="{% url 'myprofile' %}edit">
+                <button>
+                    <p>
+                        add post
+                    </p>
+                </button>
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row m-4">
+    <h3 style="font-family: Poppins semibold">Description :</h3>
+    <p style="font-family: Poppins Light; font-size: 20px">
+      {{user.description}}
+    </p>
+  </div>
+  <div class="text-center">
+    <canvas id="canvas" width="500" height="300" class="m-4">
+  </div>
 {% endblock %}

@@ -2,10 +2,23 @@
 
 
 {% block title %}
-
+salam
 {% endblock %}
 
 
-{% block content %}
 
+{% block content %}
+<div class="row m-5 card">
+    <div class="col">
+        <form id="update_form" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{form.as_p}}
+          <img src="{{ form.instance.avatar.url }}" class="avatar-preview imagePreview avatar-upload"/>
+          <br />
+          <input type="SUBMIT" name="submit" value="Update"/> 
+        </form>
+    </div>
+  </div>
+  <div class="text-center">
+  </div>
 {% endblock %}

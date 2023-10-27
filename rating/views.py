@@ -6,7 +6,7 @@ from decimal import Decimal
 from profiles.models import Profile
 from posts.models import Post
 from rating.models import Rate
-
+import uuid
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -15,19 +15,15 @@ def rating_view(request):
     if request.method != "POST":
         return HttpResponse("Invalid request method")
     
-    print("XXXXXXXXX: ", request.POST)
-    target_id = request.POST.get("target")
-    post_id = request.POST.get("post")
-    rate = int(request.POST.get("rate"))
-
+    target_id = str(request.POST.get("target_id"))
+    post = request.POST.get("post")
+    rate = Decimal(request.POST.get("rate"))
     print(request.POST)
-    print(type(request.POST.get("target_id")))
+
     target = get_object_or_404(Profile, pk=target_id)
-    print("salam")
     sender = request.user
-    if post_id:
-        post = get_object_or_404(Post, pk=post_id)
-        print("2")
+    if post:
+        post = get_object_or_404(Post, pk=post)
 
 
     if rate >= 0 and rate <= 5:
