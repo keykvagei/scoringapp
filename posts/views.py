@@ -1,6 +1,5 @@
 from cmath import log
 from django.shortcuts import render, redirect, reverse
-from django.core.exceptions import BadRequest
 from .forms import AddPostForm
 from django.contrib import messages 
 from posts.models import Post
