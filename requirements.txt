@@ -1,3 +1,5 @@
 django
 pillow
 django-qr-code
+django-crispy-forms
+crispy-bootstrap5

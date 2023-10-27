@@ -4,6 +4,8 @@ from .models import Profile
 from django.contrib.auth.decorators import login_required
 from .forms import UpdateProfileForm
 from django.contrib import messages
+from rating.models import Rate
+import datetime
 
 @login_required
 def my_profile_view(request):
@@ -17,7 +19,8 @@ def profile_view(request, username):
         context = {
             'unique_url': request.get_host() + reverse("myprofile") + str(user.pk),
             'user' : user,
-            'is_owner': (user == request.user)
+            'is_owner': (user == request.user),
+            'rate_remained': (15 - Rate.objects.filter(sender=user, date_created__date=datetime.datetime.now().date()).count())
         }
         return render(request, "profiles/profile.html", context)
     try : 
@@ -32,7 +35,6 @@ def update_profile_view(request):
         update_form = UpdateProfileForm(data=request.POST, instance=request.user)
         if update_form.is_valid() : 
             user = update_form.save(commit=False)
-        
             if 'avatar' in request.FILES : 
                 user.avatar = request.FILES['avatar']
             user.save()

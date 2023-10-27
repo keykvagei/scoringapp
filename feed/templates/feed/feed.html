@@ -2,10 +2,137 @@
 
 
 {% block title %}
-
+Newest Posts
 {% endblock %}
 
 
 {% block content %}
+    {% for p in posts %}
 
+        <div
+          class="card mt-3 postCard text-center"
+          onmouseover="extendRight()"
+          style="width: 90%"
+        >
+          <div class="row">
+            <div class="col">
+              <img
+                src="{{p.image.url}}"
+                alt=""
+                style="width: 400px; height: 400px; border-radius: 7px"
+              />
+            </div>
+            <div class="col">
+              <div class="row">
+                <a href="/profile/{{p.poster.username}}">
+                    <div class="col-1">
+                        <img
+                          src="{{p.poster.avatar.url}}"
+                          alt=""
+                          style="
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            border: solid;
+                            border-color: grey;
+                            border-width: 3px;
+                            text-align: left;
+                          "
+                          class="mt-2"
+                        />
+                      </div>
+                </a>
+                <div
+                  class="col-11 d-flex justify-content-center align-items-center"
+                >
+                  <h2 style="font-family: Poppins Semibold" class="mt-2">
+                    {{p.poster.username}} : {{p.poster.rate}}
+                  </h2>
+                </div>
+              </div>
+              <p
+                style="font-family: Poppins Light; text-align: center"
+                class="mt-3"
+              >
+                {{p.caption}}
+              </p>
+              
+              <div class="">
+                <div
+                  class="star-wrapper mb-4"
+                  dir="rtl"
+                  style="text-align: center"
+                >
+                  <a
+                    href="#"
+                    class="fa fa-star s5"
+                    style="text-decoration: none"
+                    onclick="sendRate(5,{{p.id}}, '{{p.poster.pk}}', event)"
+                    onmouseover="setRate(5,event)"
+                    onmouseleave="setRate(0,event)"
+                  ></a>
+                  <a
+                    href="#"
+                    class="fa fa-star s4"
+                    style="text-decoration: none"
+                    onclick="sendRate(4,{{p.id}}, '{{p.poster.pk}}',event)"
+                    onmouseover="setRate(4,event)"
+                    onmouseleave="setRate(0,event)"
+                  ></a>
+                  <a
+                    href="#"
+                    class="fa fa-star s3"
+                    style="text-decoration: none"
+                    onclick="sendRate(3,{{p.id}}, '{{p.poster.pk}}',event)"
+                    onmouseover="setRate(3,event)"
+                    onmouseleave="setRate(0,event)"
+                  ></a>
+                  <a
+                    href="#"
+                    class="fa fa-star s2"
+                    style="text-decoration: none"
+                    onclick="sendRate(2,{{p.id}}, '{{p.poster.pk}}',event)"
+                    onmouseover="setRate(2,event)"
+                    onmouseleave="setRate(0,event)"
+                  ></a>
+                  <a
+                    href="#"
+                    class="fa fa-star s1"
+                    style="text-decoration: none"
+                    onclick="sendRate(1,{{p.id}}, '{{p.poster.pk}}',event)"
+                    onmouseover="setRate(1,event)"
+                    onmouseleave="setRate(0,event)"
+                  ></a>
+                </div>
+              </div>
+              <div>
+                <p
+                  style="
+                    font-size: 25px;
+                    font-family: Poppins Light;
+                    font-weight: bold;
+                    text-align: center;
+                  "
+                  class="mb-4"
+                >
+                  0 / 5
+                </p>
+                <p
+                style="font-family: Poppins Light; text-align: center"
+                class="mt-3"
+              >
+                {{p.created_at}}
+              </p>
+              <p
+                style="font-family: Poppins Light; text-align: center"
+                class="mt-3"
+              >
+                Rate of this Post : {{p.post_rate}}
+              </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    {% endfor %}
 {% endblock %}

@@ -2,6 +2,7 @@ function setRate(rate, event) {
   let element = event.target.parentNode.parentNode.parentNode;
   let rateParam = element.children[1].children[0];
   if (element.children.length == 4) rateParam = element.children[3].children[0];
+  if (document.getElementById('rateParam'))rateParam = document.getElementById('rateParam');
   if (rateParam.getAttribute("isSet") == 1) return;
   rateParam.innerHTML = rate + " /5";
 }
@@ -12,8 +13,6 @@ let leftSide = document.getElementById("leftSide");
 let rightSide = document.getElementById("rightSide");
 let isLeftExtend = false;
 let isRightExtend = true;
-
-
 
 function extendLeft() {
   if (isLeftExtend) return;
@@ -90,10 +89,12 @@ function extendRight() {
   isRightExtend = true;
   isLeftExtend = false;
 }
-function sendRate(rate, event) {
+function sendRate(rate, post, targetID, event) {
   let element = event.target.parentNode.parentNode.parentNode;
   let rateParam = element.children[1].children[0];
   if (element.children.length == 4) rateParam = element.children[3].children[0];
+  if (document.getElementById('rateParam'))rateParam = document.getElementById('rateParam');
+
   let s1 = event.target.parentNode.children[4];
   let s2 = event.target.parentNode.children[3];
   let s3 = event.target.parentNode.children[2];
@@ -147,8 +148,43 @@ function sendRate(rate, event) {
       break;
   }
   rateParam.setAttribute("isSet", 1);
+  event.preventDefault(); // Prevent the default link behavior
+
+
+  // Extract the rating value from the data-rating attribute
+
+  // Create a data object to send in the POST request
+  const data = new URLSearchParams();
+  data.append('target_id', targetID);
+  if(post){
+    data.append('post', post);
+  }
+    data.append('rate', rate);
+
+  // Make an AJAX POST request to your Django view
+  fetch('/rate/', {
+      method: 'POST',
+      body: data,
+      headers: {
+          'X-CSRFToken': getCookie('csrftoken') // Add CSRF token if needed
+      }
+  })
+  .then(response => {
+      if (response.ok) {
+          // Rating was updated successfully, you can handle success here
+      } else {
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+  });
 }
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 function readURL() {
   let input = document.getElementById("imageUpload");
   if (input.files && input.files[0]) {
@@ -172,9 +208,6 @@ function pressEnter(event) {
 
 
     //////////////// Arranque //
-    function init() {
-      setInterval(draw,30);
-  }
   
   //////////////// Variáveis // Valores aqui!
   
@@ -250,4 +283,3 @@ function pressEnter(event) {
   drawingLines (larg,pontos,c);
   }
 }
-window.onload = init();

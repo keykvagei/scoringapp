@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 def home_view(request):
-    if request.user.is_authenticated : 
-        return redirect(reverse('feed_home'))
-    return redirect(reverse('login'))
+    return redirect(reverse('feed_home'))

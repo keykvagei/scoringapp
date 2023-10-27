@@ -12,3 +12,4 @@ class Post(models.Model):
     total_ratings = models.PositiveIntegerField(default=0)
     total_rating_value = models.DecimalField(max_digits=100,decimal_places=4, default=Decimal('0.00'))
     poster = models.ForeignKey("profiles.Profile", on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

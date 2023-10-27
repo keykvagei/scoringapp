@@ -1,4 +1,5 @@
 
+from email.policy import default
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from posts.models import Post
@@ -23,7 +24,7 @@ class Profile(AbstractUser):
         ('admin', 'Admin')
     )
     unique_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    avatar = models.ImageField(upload_to=get_upload_to_avatar)
+    avatar = models.ImageField(upload_to=get_upload_to_avatar, default="avatars/default-user-image.png")
     role = models.CharField(max_length=12, choices=ROLE_CHOICES, default='citizen')
     description = models.TextField(max_length = 300, blank = True, null = True)   
     rate = models.DecimalField(max_digits=4, decimal_places=3, default=0.000)
@@ -39,7 +40,6 @@ class Profile(AbstractUser):
 
         super(Profile, self).save(*args , **kwargs)
 
-        Post.objects.create(poster=self)
     # def save(self, *args, **kwargs):
     #     if not self.unique_id:
     #         self.unique_id = self.generate_unique_id()

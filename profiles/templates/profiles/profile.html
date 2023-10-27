@@ -20,6 +20,7 @@ salam
         </div>
       </div>
       <h1 style="font-family: Poppins Semibold" class="mt-4">Rating {{user.rate}}</h1>
+      <p style="font-family: Poppins Semibold" class="mt-4">remained Rates Coupon for today : {{rate_remained}}</p>
       {% qr_from_text unique_url  size="m"%}
 
     </div>
@@ -61,19 +62,89 @@ salam
               <a href="{% url 'myprofile' %}edit">
                 <button>
                     <p>
-                        edit profile
+                        Edit Profile
                     </p>
                 </button>
               </a>
-              <a href="{% url 'myprofile' %}edit">
+              <a href="{% url 'addpost' %}">
                 <button>
                     <p>
-                        add post
+                        Add Post
+                    </p>
+                </button>
+              </a>
+              <a href="{% url 'logout' %}">
+                <button>
+                    <p>
+                        Logout
                     </p>
                 </button>
               </a>
             </div>
           </div>
+        {% else %}
+        <div class="">
+          <div
+            class="star-wrapper mb-4"
+            dir="rtl"
+            style="text-align: center"
+          >
+            <a
+              href="#"
+              class="fa fa-star s5"
+              style="text-decoration: none"
+              onclick="sendRate(5,null, '{{user.pk}}', event)"
+              onmouseover="setRate(5,event)"
+              onmouseleave="setRate(0,event)"
+            ></a>
+            <a
+              href="#"
+              class="fa fa-star s4"
+              style="text-decoration: none"
+              onclick="sendRate(4,null, '{{user.pk}}',event)"
+              onmouseover="setRate(4,event)"
+              onmouseleave="setRate(0,event)"
+            ></a>
+            <a
+              href="#"
+              class="fa fa-star s3"
+              style="text-decoration: none"
+              onclick="sendRate(3,null, '{{user.pk}}',event)"
+              onmouseover="setRate(3,event)"
+              onmouseleave="setRate(0,event)"
+            ></a>
+            <a
+              href="#"
+              class="fa fa-star s2"
+              style="text-decoration: none"
+              onclick="sendRate(2,null, '{{user.pk}}',event)"
+              onmouseover="setRate(2,event)"
+              onmouseleave="setRate(0,event)"
+            ></a>
+            <a
+              href="#"
+              class="fa fa-star s1"
+              style="text-decoration: none"
+              onclick="sendRate(1,null, '{{user.pk}}',event)"
+              onmouseover="setRate(1,event)"
+              onmouseleave="setRate(0,event)"
+            ></a>
+          </div>
+        </div>
+        <div>
+          <p
+                  style="
+                    font-size: 25px;
+                    font-family: Poppins Light;
+                    font-weight: bold;
+                    text-align: center;
+                  "
+                  class="mb-4"
+                  id="rateParam"
+                >
+                  0 / 5
+                </p>
+        </div>
         {% endif %}
       </div>
     </div>

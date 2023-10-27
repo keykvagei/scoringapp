@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} rappy {% endblock %}</title>
+    <title>{% block title %} ScoringApp {% endblock %}</title>
   </head>
   <body>
     <div
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-
+      {% if user.is_authenticated %}
       <div class="col-7 order-1 order-lg-2 col-lg-3">
         <div class="row align-items-center" style="height: 90px">
           <div class="col">
@@ -34,6 +34,15 @@
                 style="width: 25px; height: 25px"
               />
             </a>
+          </div>
+          <div class="col">
+            <a href="/post/add/">
+              <img
+                src="{% static 'images/add.png' %}"
+                alt=""
+                style="width: 25px; height: 25px"
+              />
+          </a>
           </div>
 
           <div class="col">
@@ -71,7 +80,9 @@
     </div>
     
       </div>
+      {% endif %}
     </div>
+
     {% for message in messages %}
     <div class="container-fluid p-0">
       <div class="alert {{ message.tags }} alert-dismissible" role="alert" >

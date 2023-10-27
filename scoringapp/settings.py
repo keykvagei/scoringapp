@@ -42,8 +42,11 @@ INSTALLED_APPS = [
     "rating",
     "posts",
     "qr_code",
+    "accounts",
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -131,7 +134,6 @@ AUTH_USER_MODEL = "profiles.Profile"
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    "/var/www/static/",
 ]
 
 MEDIA_ROOT = BASE_DIR / "media"
