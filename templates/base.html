@@ -21,27 +21,15 @@
               style="width: 50px; height: 50px"
             />
           </div>
-          <div class="col">
-            <h2 style="font-family: Poppins Semibold" class="mt-2">rappy</h2>
-          </div>
         </div>
       </div>
 
       <div class="col-7 order-1 order-lg-2 col-lg-3">
         <div class="row align-items-center" style="height: 90px">
           <div class="col">
-            <a href="">
+            <a href="/">
               <img
                 src="{% static 'images/homepage.png' %}"
-                alt=""
-                style="width: 25px; height: 25px"
-              />
-            </a>
-          </div>
-          <div class="col">
-            <a href="">
-              <img
-                src="{% static 'images/notification.png' %}"
                 alt=""
                 style="width: 25px; height: 25px"
               />
@@ -51,7 +39,7 @@
           <div class="col">
             <a href="/profile" type="button">
               <img
-                src="{% static 'images/profile1.jpg' %}"
+                src="{{ user.avatar.url }}"
                 alt=""
                 style="
                   width: 50px;
@@ -69,17 +57,19 @@
       <div
         class="col-lg-7 text-center d-flex justify-content-center order-2 order-lg-1"
       >
-        <div class="search-container" style="min-height: 40px">
-          <input
+      <div class="search-container" style="min-height: 40px">
+        <input
             type="text"
             name="search"
-            placeholder="Search..."
+            placeholder="Enter a username..."
             class="search-input"
-          />
-          <a href="#" class="search-btn">
+            id="search-input"
+        />
+        <a class="search-btn" id="search-button">
             <i class="fas fa-search"></i>
-          </a>
-        </div>
+        </a>
+    </div>
+    
       </div>
     </div>
     {% for message in messages %}
@@ -90,6 +80,7 @@
       </div>
     </div>
     {% endfor %}
+
     {% block content %}
 
 

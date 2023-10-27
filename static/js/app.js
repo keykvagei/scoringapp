@@ -13,6 +13,8 @@ let rightSide = document.getElementById("rightSide");
 let isLeftExtend = false;
 let isRightExtend = true;
 
+
+
 function extendLeft() {
   if (isLeftExtend) return;
 
