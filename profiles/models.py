@@ -24,12 +24,12 @@ class Profile(AbstractUser):
         ('admin', 'Admin')
     )
     unique_id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    avatar = models.ImageField(upload_to=get_upload_to_avatar, default="avatars/default-user-image.png")
+    avatar = models.ImageField(upload_to=get_upload_to_avatar, default="/static/images/default-user-image.png")
     role = models.CharField(max_length=12, choices=ROLE_CHOICES, default='citizen')
     description = models.TextField(max_length = 300, blank = True, null = True)   
     rate = models.DecimalField(max_digits=4, decimal_places=3, default=0.000)
     total_ratings = models.PositiveIntegerField(default=0)
-    total_rating_value = models.DecimalField(max_digits=100,decimal_places=4, default=Decimal('0.00'))
+    total_rating_value = models.DecimalField(max_digits=100,decimal_places=4, default=Decimal('0.001'))
     def __str__(self):
         return self.username
 
